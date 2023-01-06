@@ -7,6 +7,11 @@
 <head>
 <title>List Customer </title>
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
+<!--  <script>
+function myFunc() {
+	return confirm("Are you sure want to delete")
+}
+</script>-->
 </head>
 
 <body>
@@ -28,13 +33,25 @@
 <th> First Name</th>
 <th> Last Name</th>
 <th> Email</th>
+<th>Action </th>
 </tr>
 
 <c:forEach var="tempCustomer" items="${customers}">
+<c:url var="updateLink" value="/customer/showFormForUpdate">
+<c:param name="customerId" value="${tempCustomer.id }"/>
+</c:url>
+
+<c:url var="deleteLink" value="/customer/delete">
+<c:param name="customerId" value="${tempCustomer.id }"/>
+</c:url>
+
 <tr>
 <td> ${tempCustomer.firstName} </td>
 <td>${tempCustomer.lastName}  </td>
 <td>${tempCustomer.email} </td>
+<td><a href="${updateLink }">Update</a> 
+|
+<a href="${deleteLink}" onclick="if (!(confirm('Are you sure you want to delete this customer?'))) return false">Delete</a></td>
 </tr>
  </c:forEach>
  
@@ -43,6 +60,7 @@
 
 </div>
 </div>
+
 </body>
 
 
